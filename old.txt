@@ -1,0 +1,18 @@
+search(subreddit){
+        let data;
+        return fetch(`${API_URL}/${subreddit}/${type[Math.floor(Math.random() * type.length)]}?limit=${limit}`)
+        .then(res => res.json())
+        .then(res => {
+            if(!res){
+                return Error('Please try again!')
+            } else if(!res.data){
+                return Error('Private Subreddit!')
+            } else if(res.data.dist === 0){
+                return Error('Invalid Subreddit!')
+            } else {
+                const post = res.data.children[Math.floor(Math.random() * res.data.children.length)]
+                data = format(post.data)
+            }
+            return data;
+        });
+    },
